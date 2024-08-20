@@ -21,7 +21,6 @@ class HabitsListWidget extends ConsumerWidget {
             },
             onTap: () {
               final habit = habits[index];
-
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                 return ProviderScope(
                     overrides: [currentHabitProvider.overrideWithValue(habit)],
@@ -47,7 +46,11 @@ class HabitsListWidget extends ConsumerWidget {
                             date.year == DateTime.now().year &&
                             date.month == DateTime.now().month &&
                             date.day == DateTime.now().day),
-                        onChanged: (checked) {})
+                        onChanged: (checked) {
+                          ref
+                              .read(habitsProvider.notifier)
+                              .setHabitDoneToday(habits[index].id, checked);
+                        })
                   ]),
             ),
           );

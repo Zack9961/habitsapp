@@ -1,32 +1,36 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitsapp/models/habit.dart';
 import 'package:habitsapp/models/habitsList.dart';
 import 'package:habitsapp/widgets/habitsListWidget.dart';
+import 'package:uuid/uuid.dart';
 
 final habitsProvider =
     StateNotifierProvider<HabitsList, List<Habit>>((ref) => HabitsList([
           Habit(
-              id: 1,
+              id: const Uuid().v4(),
               name: 'Esercizio fisico',
               description: 'Fai esercizio per almeno 30 minuti al giorno.',
-              completionDates: [DateTime.now()]),
+              completionDates: [
+                DateTime.now(),
+                DateTime.now().subtract(const Duration(days: 1)),
+                DateTime.now().subtract(const Duration(days: 4)),
+                DateTime.now().subtract(const Duration(days: 8))
+              ]),
           Habit(
-              id: 2,
+              id: const Uuid().v4(),
               name: 'Meditazione',
               description: 'Meditare per 10 minuti ogni giorno.'),
           Habit(
-              id: 3,
+              id: const Uuid().v4(),
               name: 'Lettura',
               description: 'Leggi almeno 20 pagine di un libro al giorno.'),
           Habit(
-              id: 4,
+              id: const Uuid().v4(),
               name: 'Scrittura',
               description: 'Scrivi un diario ogni sera.'),
           Habit(
-              id: 5,
+              id: const Uuid().v4(),
               name: 'Bere acqua',
               description: 'Bevi almeno 2 litri di acqua al giorno.'),
         ]));
@@ -74,19 +78,17 @@ class MyHomePage extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            tooltip: 'Aggiungi Abitudine',
+            tooltip: 'Add Habit',
             onPressed: () {
               ref.watch(habitsProvider.notifier).addHabit(Habit(
-                  id: Random().nextInt(1000),
-                  name: "Prova",
-                  description: "Prova"));
+                  id: const Uuid().v4(), name: "Prova", description: "Prova"));
             },
           ),
           IconButton(
-            icon: const Icon(Icons.more_vert),
-            tooltip: 'Impostazioni',
+            icon: const Icon(Icons.cloud_download),
+            tooltip: 'Download and Import',
             onPressed: () {
-              // Logica per l'icona dei 3 puntini verticali
+              // Logica
             },
           ),
         ],
