@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitsapp/main.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HabitItemPage extends ConsumerWidget {
-  const HabitItemPage({super.key});
+  const HabitItemPage(this.habitId, {super.key});
+  final String habitId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final habit = ref.watch(currentHabitProvider);
-    //final habitslist = ref.watch(habitsProvider);
+    final habit = ref.watch(specificHabitProvider(habitId));
 
     return Scaffold(
         appBar: AppBar(
@@ -66,8 +65,12 @@ class HabitItemPage extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 if (habit.description != null)
-                  Text(habit.description!,
-                      style: Theme.of(context).textTheme.bodyLarge),
+                  Text(
+                    habit.description!,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                  ),
                 Row(
                   children: [
                     const Text("Today: "),
@@ -78,9 +81,9 @@ class HabitItemPage extends ConsumerWidget {
                             date.day == DateTime.now().day),
                         onChanged: (checked) {
                           if (checked != null) {
-                            // Questo non funziona come vorremmo (!)
-                            ref.read(habitsProvider.notifier);
-                            //.setTodoDone(habit.id, checked);
+                            ref
+                                .read(habitsProvider.notifier)
+                                .setHabitDoneToday(habit.id, checked);
                           }
                         }),
                   ],

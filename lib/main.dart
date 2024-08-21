@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitsapp/models/habit.dart';
-import 'package:habitsapp/models/habitsList.dart';
-import 'package:habitsapp/widgets/habitsListWidget.dart';
+import 'package:habitsapp/models/habits_list.dart';
+import 'package:habitsapp/screens/new_habit_page.dart';
+import 'package:habitsapp/widgets/habits_list_widget.dart';
 import 'package:uuid/uuid.dart';
 
 final habitsProvider =
@@ -34,6 +35,9 @@ final habitsProvider =
               name: 'Bere acqua',
               description: 'Bevi almeno 2 litri di acqua al giorno.'),
         ]));
+
+final specificHabitProvider = Provider.family<Habit, String>((ref, habitId) =>
+    ref.watch(habitsProvider).where((h) => h.id == habitId).single);
 
 // Provider ausiliario che espone l'oggetto Habit "corrente" (selezionato/aperto)
 final currentHabitProvider =
@@ -78,10 +82,13 @@ class MyHomePage extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            tooltip: 'Add Habit',
+            tooltip: 'Create habit',
             onPressed: () {
-              ref.watch(habitsProvider.notifier).addHabit(Habit(
-                  id: const Uuid().v4(), name: "Prova", description: "Prova"));
+              //ref.watch(habitsProvider.notifier).addHabit(Habit(
+              //    id: const Uuid().v4(), name: "Prova", description: "Prova"));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return const NewHabitPage();
+              }));
             },
           ),
           IconButton(
