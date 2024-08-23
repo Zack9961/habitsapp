@@ -20,7 +20,6 @@ class _NewHabitPageState extends ConsumerState<NewHabitPage> {
   void initState() {
     _ctrlName = TextEditingController();
     _ctrlDesc = TextEditingController();
-
     super.initState();
   }
 

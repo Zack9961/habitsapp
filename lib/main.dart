@@ -1,10 +1,28 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitsapp/models/habit.dart';
 import 'package:habitsapp/models/habits_list.dart';
 import 'package:habitsapp/screens/new_habit_page.dart';
 import 'package:habitsapp/widgets/habits_list_widget.dart';
+import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
+
+final httpHabitsProvider = FutureProvider((ref) async {
+  final response =
+      await http.get(Uri.parse("http://192.168.1.72:8000/habits.json"));
+  if (response.statusCode != 200) {
+    throw Exception(
+        "Failed to access resource (status code: ${response.statusCode})");
+  }
+
+  List<dynamic> json = jsonDecode(response.body);
+
+  final habits = json.map((e) => Habit.fromJson(e)).toList();
+
+  return habits;
+});
 
 final habitsProvider =
     StateNotifierProvider<HabitsList, List<Habit>>((ref) => HabitsList([
@@ -84,8 +102,6 @@ class MyHomePage extends ConsumerWidget {
             icon: const Icon(Icons.add),
             tooltip: 'Create habit',
             onPressed: () {
-              //ref.watch(habitsProvider.notifier).addHabit(Habit(
-              //    id: const Uuid().v4(), name: "Prova", description: "Prova"));
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                 return const NewHabitPage();
               }));
@@ -95,7 +111,50 @@ class MyHomePage extends ConsumerWidget {
             icon: const Icon(Icons.cloud_download),
             tooltip: 'Download and Import',
             onPressed: () {
-              // Logica
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Import habits?'),
+                    content: const Text(
+                        'The habits will be imported from http.\n Habits with same ID will be replaced.'),
+                    actions: [
+                      TextButton(
+                        child: const Text('NO'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: const Text('YES'),
+                        onPressed: () {
+                          //basta far fare la logica al metodo della lista statenotifier
+                          //e richiamarlo così:
+                          ref.read(habitsProvider.notifier).addHabitsFromHttp();
+                          debugPrint(
+                              "E' stata avviata la funzione addhabitsfromhttp");
+/*
+                          final pippo = ref.watch(httpHabitsProvider);
+
+                          pippo.when(
+                              data: (data) => ref
+                                  .read(habitsProvider.notifier)
+                                  .addHabits(data),
+                              error: (error, stackTrace) =>
+                                  Center(child: Text(error.toString())),
+                              loading: () => const Center(
+                                  child: CircularProgressIndicator()));
+*/
+                          // ref
+                          //     .read(habitsProvider.notifier)
+                          //     .removeHabit(habit.id);
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
             },
           ),
         ],

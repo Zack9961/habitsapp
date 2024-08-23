@@ -8,6 +8,7 @@ class HabitsListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    debugPrint("si è agg $runtimeType");
     final habits = ref.watch(habitsProvider);
 
     return ListView.builder(
@@ -23,6 +24,7 @@ class HabitsListWidget extends ConsumerWidget {
 class _HabitListViewItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    debugPrint("Si agg $runtimeType");
     final habit = ref.watch(currentHabitProvider);
 
     return GestureDetector(
