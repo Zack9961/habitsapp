@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitsapp/main.dart';
 import 'package:habitsapp/models/habit.dart';
-import 'package:uuid/uuid.dart';
 
-class NewHabitPage extends ConsumerStatefulWidget {
-  const NewHabitPage({super.key});
+class EditHabitPage extends ConsumerStatefulWidget {
+  final String habitId;
+
+  const EditHabitPage(this.habitId, {super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _NewHabitPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _EditHabitPageState();
 }
 
-class _NewHabitPageState extends ConsumerState<NewHabitPage> {
+class _EditHabitPageState extends ConsumerState<EditHabitPage> {
   late final _formKey = GlobalKey<FormState>();
   late TextEditingController _ctrlName;
   late TextEditingController _ctrlDesc;
@@ -20,6 +21,7 @@ class _NewHabitPageState extends ConsumerState<NewHabitPage> {
   void initState() {
     _ctrlName = TextEditingController();
     _ctrlDesc = TextEditingController();
+
     super.initState();
   }
 
@@ -32,20 +34,24 @@ class _NewHabitPageState extends ConsumerState<NewHabitPage> {
 
   @override
   Widget build(BuildContext context) {
+    final habit = ref.watch(specificHabitProvider(widget.habitId));
+    _ctrlName.text = habit.name;
+    _ctrlDesc.text = habit.description;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create habit'),
+        title: const Text('Edit habit'),
         actions: [
           TextButton(
             child: const Text('SAVE'),
             onPressed: () async {
               if (_formKey.currentState!.validate()) {
-                await ref.watch(habitsProvider.notifier).addHabit(Habit(
-                      id: const Uuid().v4(),
-                      name: _ctrlName.text,
-                      description:
-                          _ctrlDesc.text.trim().isEmpty ? '' : _ctrlDesc.text,
-                    ));
+                await ref.watch(habitsProvider.notifier).updateHabit(Habit(
+                    id: habit.id,
+                    name: _ctrlName.text,
+                    description:
+                        _ctrlDesc.text.trim().isEmpty ? '' : _ctrlDesc.text,
+                    completionDates: habit.completionDates));
                 if (context.mounted) {
                   Navigator.of(context).pop();
                 }

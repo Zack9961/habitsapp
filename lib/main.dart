@@ -5,7 +5,7 @@ import 'package:habitsapp/models/habit_database.dart';
 import 'package:habitsapp/models/habits_list.dart';
 import 'package:habitsapp/screens/new_habit_page.dart';
 import 'package:habitsapp/widgets/habits_list_widget.dart';
-import 'package:uuid/uuid.dart';
+//import 'package:uuid/uuid.dart';
 /*
 final httpHabitsProvider = FutureProvider((ref) async {
   final response =

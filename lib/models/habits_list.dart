@@ -23,10 +23,18 @@ class HabitsList extends StateNotifier<List<Habit>> {
         newHabit.completionDates);
   }
 
+  Future updateHabit(Habit newUpdatedHabit) async {
+    final index = state.indexWhere((habit) => habit.id == newUpdatedHabit.id);
+
+    state = [...state]..[index] = newUpdatedHabit;
+    await database.updateHabit(newUpdatedHabit.id, newUpdatedHabit.name,
+        newUpdatedHabit.description, newUpdatedHabit.completionDates);
+  }
+
   Future<void> addHabitsFromHttp() async {
     try {
       final response =
-          await http.get(Uri.parse("http://192.168.8.114:8000/habits.json"));
+          await http.get(Uri.parse("http://192.168.1.72:8000/habits.json"));
       if (response.statusCode != 200) {
         throw Exception(
             "Failed to access resource (status code: ${response.statusCode})");

@@ -7,14 +7,14 @@ class Habit {
   final String id; // Identificatore unico per l'abitudine
   @JsonKey(required: true)
   final String name; // Nome dell'abitudine
-  final String? description; // Descrizione dell'abitudine
+  final String description; // Descrizione dell'abitudine
   final List<DateTime>
       completionDates; // Date in cui l'abitudine è stata completata
 
   const Habit({
     required this.id,
     required this.name,
-    this.description,
+    this.description = '',
     List<DateTime>? completionDates,
   }) : completionDates = completionDates ?? const [];
 

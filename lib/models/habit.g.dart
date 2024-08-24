@@ -14,7 +14,7 @@ Habit _$HabitFromJson(Map<String, dynamic> json) {
   return Habit(
     id: json['id'] as String,
     name: json['name'] as String,
-    description: json['description'] as String?,
+    description: json['description'] as String? ?? '',
     completionDates: (json['completionDates'] as List<dynamic>?)
         ?.map((e) => DateTime.parse(e as String))
         .toList(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitsapp/main.dart';
+import 'package:habitsapp/screens/edit_habit_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HabitItemPage extends ConsumerWidget {
@@ -19,7 +20,10 @@ class HabitItemPage extends ConsumerWidget {
               icon: const Icon(Icons.edit),
               tooltip: 'Modifica',
               onPressed: () {
-                // Logica
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return EditHabitPage(habit.id);
+                }));
               },
             ),
             IconButton(
@@ -60,36 +64,36 @@ class HabitItemPage extends ConsumerWidget {
         ),
         body: Padding(
             padding: const EdgeInsets.all(16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                if (habit.description != null)
-                  Text(
-                    habit.description!,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  if (habit.description.isNotEmpty)
+                    Text(
+                      habit.description,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                    ),
+                  Row(
+                    children: [
+                      const Text("Today: "),
+                      Checkbox(
+                          value: habit.completionDates.any((date) =>
+                              date.year == DateTime.now().year &&
+                              date.month == DateTime.now().month &&
+                              date.day == DateTime.now().day),
+                          onChanged: (checked) async {
+                            if (checked != null) {
+                              await ref
+                                  .read(habitsProvider.notifier)
+                                  .setHabitDoneToday(habit.id, checked);
+                            }
+                          }),
+                    ],
                   ),
-                Row(
-                  children: [
-                    const Text("Today: "),
-                    Checkbox(
-                        value: habit.completionDates.any((date) =>
-                            date.year == DateTime.now().year &&
-                            date.month == DateTime.now().month &&
-                            date.day == DateTime.now().day),
-                        onChanged: (checked) async {
-                          if (checked != null) {
-                            await ref
-                                .read(habitsProvider.notifier)
-                                .setHabitDoneToday(habit.id, checked);
-                          }
-                        }),
-                  ],
-                ),
-                Expanded(
-                  child: TableCalendar(
+                  TableCalendar(
                     firstDay: DateTime(2020),
                     lastDay: DateTime(2050),
                     focusedDay: DateTime.now(),
@@ -137,13 +141,15 @@ class HabitItemPage extends ConsumerWidget {
                       //   );
                       // },
                     ),
-                    headerStyle: const HeaderStyle(formatButtonVisible: false),
+                    headerStyle: const HeaderStyle(
+                        formatButtonVisible: false, titleCentered: true),
                     calendarStyle: const CalendarStyle(
                       isTodayHighlighted: false,
                     ),
+                    availableGestures: AvailableGestures.horizontalSwipe,
                   ),
-                ),
-              ],
+                ],
+              ),
             )));
   }
 }
