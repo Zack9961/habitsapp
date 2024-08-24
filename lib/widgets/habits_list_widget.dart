@@ -28,9 +28,9 @@ class _HabitListViewItem extends ConsumerWidget {
     final habit = ref.watch(currentHabitProvider);
 
     return GestureDetector(
-      onLongPress: () {
-        debugPrint('Hai tenuto premuto: $habit.name}');
-      },
+      // onLongPress: () {
+      //   debugPrint('Hai tenuto premuto: $habit.name}');
+      // },
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           return HabitItemPage(habit.id);
@@ -54,16 +54,50 @@ class _HabitListViewItem extends ConsumerWidget {
               maxLines: 2,
             ),
           ),
-          Checkbox(
-              value: habit.completionDates.any((date) =>
-                  date.year == DateTime.now().year &&
-                  date.month == DateTime.now().month &&
-                  date.day == DateTime.now().day),
-              onChanged: (checked) {
-                ref
-                    .read(habitsProvider.notifier)
-                    .setHabitDoneToday(habit.id, checked);
-              })
+          OrientationBuilder(builder: (context, orientation) {
+            final currentOrientation = MediaQuery.of(context).orientation;
+            if (currentOrientation == Orientation.portrait) {
+              return Row(
+                children: [
+                  Checkbox(
+                      value: habit.completionDates.any((date) =>
+                          date.year == DateTime.now().year &&
+                          date.month == DateTime.now().month &&
+                          date.day == DateTime.now().day),
+                      onChanged: (checked) async {
+                        await ref
+                            .read(habitsProvider.notifier)
+                            .setHabitDoneToday(habit.id, checked);
+                      }),
+                ],
+              );
+            } else {
+              return Row(
+                children: [
+                  habit.completionDates.any((date) =>
+                          date.year == DateTime.now().year &&
+                          date.month == DateTime.now().month &&
+                          date.day ==
+                              DateTime.now()
+                                  .subtract(const Duration(days: 1))
+                                  .day)
+                      ? const Icon(Icons.check, color: Colors.blue)
+                      : const Icon(Icons.close, color: Colors.grey),
+                  const SizedBox(width: 32),
+                  Checkbox(
+                      value: habit.completionDates.any((date) =>
+                          date.year == DateTime.now().year &&
+                          date.month == DateTime.now().month &&
+                          date.day == DateTime.now().day),
+                      onChanged: (checked) async {
+                        await ref
+                            .read(habitsProvider.notifier)
+                            .setHabitDoneToday(habit.id, checked);
+                      }),
+                ],
+              );
+            }
+          })
         ]),
       ),
     );

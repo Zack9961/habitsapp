@@ -38,9 +38,9 @@ class _NewHabitPageState extends ConsumerState<NewHabitPage> {
         actions: [
           TextButton(
             child: const Text('SAVE'),
-            onPressed: () {
+            onPressed: () async {
               if (_formKey.currentState!.validate()) {
-                ref.watch(habitsProvider.notifier).addHabit(Habit(
+                await ref.watch(habitsProvider.notifier).addHabit(Habit(
                       id: const Uuid().v4(),
                       name: _ctrlName.text,
                       description:

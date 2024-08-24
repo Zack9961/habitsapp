@@ -79,9 +79,9 @@ class HabitItemPage extends ConsumerWidget {
                             date.year == DateTime.now().year &&
                             date.month == DateTime.now().month &&
                             date.day == DateTime.now().day),
-                        onChanged: (checked) {
+                        onChanged: (checked) async {
                           if (checked != null) {
-                            ref
+                            await ref
                                 .read(habitsProvider.notifier)
                                 .setHabitDoneToday(habit.id, checked);
                           }

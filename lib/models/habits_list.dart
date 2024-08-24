@@ -1,48 +1,58 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habitsapp/models/habit.dart';
+import 'package:habitsapp/models/habit_database.dart';
 import 'package:http/http.dart' as http;
 
 class HabitsList extends StateNotifier<List<Habit>> {
-  HabitsList(super.state);
+  HabitDatabase database;
 
-  void addHabit(Habit newHabit) {
+  HabitsList(super.state, this.database);
+
+  Future init() async {
+    //final habits = await database.allHabits;
+
+    state = await database.allHabits;
+  }
+
+  Future addHabit(Habit newHabit) async {
     state = [...state, newHabit];
+
+    await database.addHabit(newHabit.id, newHabit.name, newHabit.description,
+        newHabit.completionDates);
   }
 
-  //metodo per aggiungere gli habits, quindi per sfruttare richiesta http tramite riverpod
-  void addHabits(List<Habit> newHabits) {
-    for (final newHabit in newHabits) {
-      final index = state.indexWhere((habit) => habit.id == newHabit.id);
-      if (index != -1) {
-        state[index] = newHabit;
-      } else {
-        state.add(newHabit);
-      }
-    }
-  }
-
-  //metodo più sensato per richiesta http
   Future<void> addHabitsFromHttp() async {
-    final response =
-        await http.get(Uri.parse("http://192.168.1.72:8000/habits.json"));
-    if (response.statusCode != 200) {
-      throw Exception(
-          "Failed to access resource (status code: ${response.statusCode})");
-    }
-
-    List<dynamic> json = jsonDecode(response.body);
-    final importedHabits = json.map((e) => Habit.fromJson(e)).toList();
-
-    //metodo che dovrebbe funzionare ma meno efficiente
-    for (final newHabit in importedHabits) {
-      final index = state.indexWhere((habit) => habit.id == newHabit.id);
-      if (index != -1) {
-        state = [...state]..[index] = newHabit;
-      } else {
-        state = [...state, newHabit];
+    try {
+      final response =
+          await http.get(Uri.parse("http://192.168.8.114:8000/habits.json"));
+      if (response.statusCode != 200) {
+        throw Exception(
+            "Failed to access resource (status code: ${response.statusCode})");
       }
+
+      List<dynamic> json = jsonDecode(response.body);
+      final importedHabits = json.map((e) => Habit.fromJson(e)).toList();
+
+      for (final newHabit in importedHabits) {
+        final index = state.indexWhere((habit) => habit.id == newHabit.id);
+        if (index != -1) {
+          state = [...state]..[index] = newHabit;
+          await database.updateHabit(newHabit.id, newHabit.name,
+              newHabit.description, newHabit.completionDates);
+        } else {
+          state = [...state, newHabit];
+          await database.addHabit(newHabit.id, newHabit.name,
+              newHabit.description, newHabit.completionDates);
+        }
+      }
+
+      //aggiungere nel db il nuovo stato
+    } on SocketException {
+      throw Exception("No response");
+    } catch (e) {
+      throw Exception("Error: ${e.toString()}");
     }
 
     /*
@@ -63,10 +73,16 @@ class HabitsList extends StateNotifier<List<Habit>> {
     */
   }
 
-  void setHabitDoneToday(String id, bool? checked) {
+  Future<void> setHabitDoneToday(String id, bool? checked) async {
     if (checked == true) {
-      state = state.map((habit) {
+      state = await Future.wait(state.map((habit) async {
         if (habit.id == id) {
+          await database.updateHabit(
+            habit.id,
+            habit.name,
+            habit.description,
+            [...habit.completionDates, DateTime.now()],
+          );
           return Habit(
             id: habit.id,
             name: habit.name,
@@ -76,11 +92,22 @@ class HabitsList extends StateNotifier<List<Habit>> {
         } else {
           return habit;
         }
-      }).toList();
+      }));
     } else {
-      state = state.map((habit) {
+      state = await Future.wait(state.map((habit) async {
         if (habit.id == id) {
           final today = DateTime.now();
+          await database.updateHabit(
+            habit.id,
+            habit.name,
+            habit.description,
+            habit.completionDates
+                .where((date) =>
+                    date.year != today.year ||
+                    date.month != today.month ||
+                    date.day != today.day)
+                .toList(),
+          );
           return Habit(
             id: habit.id,
             name: habit.name,
@@ -95,11 +122,24 @@ class HabitsList extends StateNotifier<List<Habit>> {
         } else {
           return habit;
         }
-      }).toList();
+      }));
     }
   }
 
-  void removeHabit(String id) {
+  Future<void> removeHabit(String id) async {
     state = state.where((element) => element.id != id).toList();
+    await database.removeHabit(id);
   }
+
+  //metodo per aggiungere gli habits, quindi per sfruttare richiesta http tramite riverpod
+  // void addHabits(List<Habit> newHabits) {
+  //   for (final newHabit in newHabits) {
+  //     final index = state.indexWhere((habit) => habit.id == newHabit.id);
+  //     if (index != -1) {
+  //       state[index] = newHabit;
+  //     } else {
+  //       state.add(newHabit);
+  //     }
+  //   }
+  // }
 }
