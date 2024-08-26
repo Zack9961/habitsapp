@@ -6,8 +6,6 @@ Habist App è progettata per aiutare gli utenti a tenere traccia delle loro abit
 ## Casi d'uso ed esperienza utente
 ### Schermata principale e aggiunta di una nuova abitudine
 
-### Schermata principale e aggiunta di una nuova abitudine
-
 <div style="display: flex; justify-content: space-around;">
   <img src="./assets/screenshots/schermata_principale.png" width="30%">
   <img src="./assets/screenshots/aggiunta_abitudini.png" width="30%">
@@ -20,7 +18,7 @@ Un utente che, per esempio, ha difficoltà a mantenere l'abitudine di fare eserc
 
 La schermata principale può cambiare nel caso in cui lo schermo sia orizzontale, aggiungendo una nuova colonna, che indica se l'abitudine è stata completata o meno, nella giornata di ieri.
 
-<img src="./assets/screenshots/orizzontale.png" width="80%">
+<img src="./assets/screenshots/orizzontale.png" width="70%">
 
 ### Schermata di visualizzazione dei dettagli e modifica
  
