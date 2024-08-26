@@ -6,9 +6,16 @@ Habist App è progettata per aiutare gli utenti a tenere traccia delle loro abit
 ## Casi d'uso ed esperienza utente
 ### Schermata principale e aggiunta di una nuova abitudine
 
-![Schermata principale](./assets/screenshots/schermata_principale.png){width="50%"}
-
-![Schermata per la creazione di una nuova abitudine](./assets/screenshots/aggiunta_abitudini.png){width="50%"}
+<div style="display: flex; justify-content: space-around;">
+  <figure>
+    <img src="./assets/screenshots/schermata_principale.png" width="50%">
+    <figcaption>Schermata principale</figcaption>
+  </figure>
+  <figure>
+    <img src="./assets/screenshots/aggiunta_abitudini.png" width="50%">
+    <figcaption>Schermata per la creazione di una nuova abitudine</figcaption>
+  </figure>
+</div>
 
 Un utente che, per esempio, ha difficoltà a mantenere l'abitudine di fare esercizio fisico e di leggere un libro che vuole finire può essere motivato grazie a questa applicazione. All'avvio non dovrà fare altro che cliccare nel pulsante in alto per raggiungere la schermata di creazione di un'abitudine, inserire le informazioni (Nome dell'abitudine e relativa descrizione) e confermare. Una volta inserite le abitudini, verrà ricondotto alla schermata principale, che questa volta sarà popolata dalle abitudini che ha inserito, ora potrà segnare il completamento di ogni abitudine nel riquadro apposito. Il completamento è giornaliero, quindi quando si spunta il riquadro, vuol dire che per quel giorno l'abitudine è stata fatta. 
 
