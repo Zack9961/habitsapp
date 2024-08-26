@@ -6,7 +6,7 @@ Habist App è progettata per aiutare gli utenti a tenere traccia delle loro abit
 ## Casi d'uso ed esperienza utente
 ### Schermata principale e aggiunta di una nuova abitudine
 
-![Schermata principale](./assets/schermata_principale.png)
+![Schermata principale](https://raw.githubusercontent.com/Zack9961/habitsapp/master/assets/schermata_principale.png)
 
 ![Schermata per la creazione di una nuova abitudine](./assets/aggiunta_abitudini.png)
 
