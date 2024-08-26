@@ -6,9 +6,9 @@ Habist App è progettata per aiutare gli utenti a tenere traccia delle loro abit
 ## Casi d'uso ed esperienza utente
 ### Schermata principale e aggiunta di una nuova abitudine
 
-![Schermata principale](./assets/screenshots/schermata_principale.png)
+![Schermata principale](./assets/screenshots/schermata_principale.png){width="50%"}
 
-![Schermata per la creazione di una nuova abitudine](./assets/screenshots/aggiunta_abitudini.png)
+![Schermata per la creazione di una nuova abitudine](./assets/screenshots/aggiunta_abitudini.png){width="50%"}
 
 Un utente che, per esempio, ha difficoltà a mantenere l'abitudine di fare esercizio fisico e di leggere un libro che vuole finire può essere motivato grazie a questa applicazione. All'avvio non dovrà fare altro che cliccare nel pulsante in alto per raggiungere la schermata di creazione di un'abitudine, inserire le informazioni (Nome dell'abitudine e relativa descrizione) e confermare. Una volta inserite le abitudini, verrà ricondotto alla schermata principale, che questa volta sarà popolata dalle abitudini che ha inserito, ora potrà segnare il completamento di ogni abitudine nel riquadro apposito. Il completamento è giornaliero, quindi quando si spunta il riquadro, vuol dire che per quel giorno l'abitudine è stata fatta. 
 
@@ -16,17 +16,17 @@ Un utente che, per esempio, ha difficoltà a mantenere l'abitudine di fare eserc
 
 La schermata principale può cambiare nel caso in cui lo schermo sia orizzontale, aggiungendo una nuova colonna, che indica se l'abitudine è stata completata o meno, nella giornata di ieri.
 
-![Schermata principale in modalità orizzontale](./assets/screenshots/orizzontale.png)
+![Schermata principale in modalità orizzontale](./assets/screenshots/orizzontale.png){width="50%"}
 
 ### Schermata di visualizzazione dei dettagli e modifica
  
 Dopo vari utilizzi, l'utente può cliccare sull'abitudine che farà aprire una schermata relativa ai dettagli; al suo interno, oltre al nome e alla descrizione, sarà visualizzato un calendario dove saranno segnati i giorni in cui ha completato l'abitudine, aumentando possibilmente la motivazione.
 
-![Schermata di dettaglio](./assets/screenshots/dettaglio.png)
+![Schermata di dettaglio](./assets/screenshots/dettaglio.png){width="50%"}
 
 Come si può notare dallo screenshot, l'utente può anche selezionare i pulsanti in alto a destra per cancellare o modificare l'abitudine. Se viene premuto il pulsante di modifica, si aprirà una schermata simile a quella per aggiungere un'abitudine ma con la possibilità di cambiare nome e descrizione:
 
-![Schermata di modifica](./assets/screenshots/modifica.png)
+![Schermata di modifica](./assets/screenshots/modifica.png){width="50%"}
 
 Una volta completata la modifa si può premere "SAVE" per confermare.
 
