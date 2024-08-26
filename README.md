@@ -9,8 +9,8 @@ Habist App è progettata per aiutare gli utenti a tenere traccia delle loro abit
 ### Schermata principale e aggiunta di una nuova abitudine
 
 <div style="display: flex; justify-content: space-around;">
-  <img src="./assets/screenshots/schermata_principale.png" width="25%">
-  <img src="./assets/screenshots/aggiunta_abitudini.png" width="25%">
+  <img src="./assets/screenshots/schermata_principale.png" width="30%">
+  <img src="./assets/screenshots/aggiunta_abitudini.png" width="30%">
 </div>
 
 
@@ -20,17 +20,17 @@ Un utente che, per esempio, ha difficoltà a mantenere l'abitudine di fare eserc
 
 La schermata principale può cambiare nel caso in cui lo schermo sia orizzontale, aggiungendo una nuova colonna, che indica se l'abitudine è stata completata o meno, nella giornata di ieri.
 
-<img src="./assets/screenshots/orizzontale.png" width="50%">
+<img src="./assets/screenshots/orizzontale.png" width="30%">
 
 ### Schermata di visualizzazione dei dettagli e modifica
  
 Dopo vari utilizzi, l'utente può cliccare sull'abitudine che farà aprire una schermata relativa ai dettagli; al suo interno, oltre al nome e alla descrizione, sarà visualizzato un calendario dove saranno segnati i giorni in cui ha completato l'abitudine, aumentando possibilmente la motivazione.
 
-<img src="./assets/screenshots/dettaglio.png" width="50%">
+<img src="./assets/screenshots/dettaglio.png" width="30%">
 
 Come si può notare dallo screenshot, l'utente può anche selezionare i pulsanti in alto a destra per cancellare o modificare l'abitudine. Se viene premuto il pulsante di modifica, si aprirà una schermata simile a quella per aggiungere un'abitudine ma con la possibilità di cambiare nome e descrizione:
 
-<img src="./assets/screenshots/modifica.png" width="50%">
+<img src="./assets/screenshots/modifica.png" width="30%">
 
 Una volta completata la modifa si può premere "SAVE" per confermare.
 
