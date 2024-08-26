@@ -1,53 +1,32 @@
 [
   {
     "id": "f47ac10b-58cc-43a8-b8d5-1a3e6f7c9d2e",
-    "name": "Allenamento quotidiano",
-    "description": "Allenamento di 30 minuti al giorno per mantenere la forma fisica",
+    "name": "Esercizio fisico",
+    "description": "Fare esercizio per almeno 30 minuti al giorno.",
     "completionDates": [
-      "2024-01-01T12:00:00.000Z",
-      "2024-01-02T12:00:00.000Z",
-      "2024-08-23T12:00:00.000Z"
+      "2024-08-26T12:00:00.000Z",
+      "2024-08-25T12:00:00.000Z",
+      "2024-08-23T12:00:00.000Z",
+      "2024-08-18T12:00:00.000Z",
+      "2024-08-13T12:00:00.000Z",
+      "2024-08-08T12:00:00.000Z",
+      "2024-08-03T12:00:00.000Z",
+      "2024-07-29T12:00:00.000Z"
     ]
   },
   {
     "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3f5a1c",
-    "name": "Meditazione quotidiana",
-    "description": "10 minuti di meditazione al giorno per ridurre lo stress",
+    "name": "Leggere",
+    "description": "Leggere almeno 20 pagine al giorno.",
     "completionDates": [
-      "2024-01-01T08:00:00.000Z",
-      "2024-01-02T08:00:00.000Z",
-      "2024-01-04T08:00:00.000Z"
-    ]
-  },
-  {
-    "id": "6ec0bd7f-11c0-43fd-8a7c-5b2d9f6a3e1d",
-    "name": "Lettura quotidiana",
-    "description": "Leggere almeno 30 minuti al giorno per migliorare la conoscenza",
-    "completionDates": [
-      "2024-01-01T19:00:00.000Z",
-      "2024-01-03T19:00:00.000Z",
-      "2024-08-23T19:00:00.000Z"
-    ]
-  },
-  {
-    "id": "3a5b8d9c-6f7d-4c3a-b2d5-1a9e6f7c2b3d",
-    "name": "Allenamento di forza",
-    "description": "Allenamento di forza 2 volte a settimana per migliorare la massa muscolare",
-    "completionDates": [
-      "2024-01-02T14:00:00.000Z",
-      "2024-01-05T14:00:00.000Z"
-    ]
-  },
-  {
-    "id": "8d2c9f6a-3b7d-43a8-b1d5-6e0d7b3f5a1c",
-    "name": "Passeggiata quotidiana",
-    "description": "Passeggiata di 30 minuti al giorno per migliorare la salute",
-    "completionDates": [
-      "2024-01-01T15:00:00.000Z",
-      "2024-01-02T15:00:00.000Z",
-      "2024-01-03T15:00:00.000Z",
-      "2024-01-04T15:00:00.000Z",
-      "2024-08-23T15:00:00.000Z"
+      "2024-08-26T12:00:00.000Z",
+      "2024-08-24T12:00:00.000Z",
+      "2024-08-23T12:00:00.000Z",
+      "2024-08-22T12:00:00.000Z",
+      "2024-08-21T12:00:00.000Z",
+      "2024-08-20T12:00:00.000Z",
+      "2024-08-19T12:00:00.000Z",
+      "2024-08-18T12:00:00.000Z"
     ]
   }
 ]

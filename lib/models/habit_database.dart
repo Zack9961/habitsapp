@@ -43,33 +43,9 @@ class HabitDatabase extends _$HabitDatabase {
       onCreate: (Migrator m) async {
         await m.createAll();
       },
-      onUpgrade: (Migrator m, int from, int to) async {
-        // if(from < 2) {
-        // ... applica la migrazione da versione 1 a 2 ...
-        // }
-
-        // if(from < 3) {
-        // ... applica la migrazione da versione 2 a 3 ...
-        // }
-
-        // ... fino alla versione corrente, vedi schemaVersion sopra
-      },
+      onUpgrade: (Migrator m, int from, int to) async {},
     );
   }
-
-  // Future<Habit> _fromDbToInternal(DatabaseHabit r) async {
-  //   final completionDates = await (select(completionDatesTable)
-  //         ..where((e) => e.habitId.equals(r.id)))
-  //       .map((e) => e.completionDate)
-  //       .get();
-
-  //   return Habit(
-  //     id: r.id,
-  //     name: r.name,
-  //     description: r.description,
-  //     completionDates: completionDates,
-  //   );
-  // }
 
   Future<List<Habit>> get allHabits async {
     m.debugPrint("Retrieving all habits from DB");
@@ -93,7 +69,7 @@ class HabitDatabase extends _$HabitDatabase {
     }));
   }
 
-  Future addHabit(String id, String name, String? description,
+  Future addHabit(String id, String name, String description,
       List<DateTime> completionDates) {
     m.debugPrint("Adding new habit $id = $name");
 
@@ -101,7 +77,7 @@ class HabitDatabase extends _$HabitDatabase {
       await into(habitsTable).insert(HabitsTableCompanion(
         id: Value(id),
         name: Value(name),
-        description: Value(description ?? ''),
+        description: Value(description),
         addedOn: Value(DateTime.now().toUtc()),
       ));
 
@@ -114,7 +90,7 @@ class HabitDatabase extends _$HabitDatabase {
     });
   }
 
-  Future updateHabit(String id, String name, String? description,
+  Future updateHabit(String id, String name, String description,
       List<DateTime> completionDates) {
     m.debugPrint("Updating habit $id = $name");
 
@@ -122,7 +98,7 @@ class HabitDatabase extends _$HabitDatabase {
       await (update(habitsTable)..where((tbl) => tbl.id.equals(id))).write(
         HabitsTableCompanion(
           name: Value(name),
-          description: Value(description ?? ''),
+          description: Value(description),
         ),
       );
 

@@ -98,49 +98,25 @@ class HabitItemPage extends ConsumerWidget {
                     lastDay: DateTime(2050),
                     focusedDay: DateTime.now(),
                     calendarFormat: CalendarFormat.month,
-                    // selectedDayPredicate: (day) {
-                    //   return habit.completionDates.any((date) =>
-                    //       date.year == day.year &&
-                    //       date.month == day.month &&
-                    //       date.day == day.day);
-                    // },
-                    calendarBuilders: CalendarBuilders(
-                      markerBuilder: (context, day, events) {
-                        if (habit.completionDates.any((date) =>
-                            date.year == day.year &&
-                            date.month == day.month &&
-                            date.day == day.day)) {
-                          return Container(
-                            margin: const EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                            width: 10,
-                            height: 10,
-                          );
-                        } else {
-                          return null;
-                        }
-                      },
-                      // todayBuilder: (context, day, focusedDay) {
-                      //   return Container(
-                      //     margin: const EdgeInsets.all(4),
-                      //     decoration: BoxDecoration(
-                      //       shape: BoxShape.circle,
-                      //       color: Theme.of(context).colorScheme.primary,
-                      //     ),
-                      //     child: Center(
-                      //       child: Text(
-                      //         day.day.toString(),
-                      //         style: TextStyle(
-                      //           color: Theme.of(context).colorScheme.onPrimary,
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   );
-                      // },
-                    ),
+                    calendarBuilders:
+                        CalendarBuilders(markerBuilder: (context, day, events) {
+                      if (habit.completionDates.any((date) =>
+                          date.year == day.year &&
+                          date.month == day.month &&
+                          date.day == day.day)) {
+                        return Container(
+                          margin: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          width: 10,
+                          height: 10,
+                        );
+                      } else {
+                        return null;
+                      }
+                    }),
                     headerStyle: const HeaderStyle(
                         formatButtonVisible: false, titleCentered: true),
                     calendarStyle: const CalendarStyle(

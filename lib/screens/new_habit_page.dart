@@ -63,7 +63,7 @@ class _NewHabitPageState extends ConsumerState<NewHabitPage> {
               TextFormField(
                 controller: _ctrlName,
                 decoration: const InputDecoration(
-                  labelText: 'Name',
+                  labelText: 'Habit Name',
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
@@ -77,16 +77,10 @@ class _NewHabitPageState extends ConsumerState<NewHabitPage> {
               TextFormField(
                 controller: _ctrlDesc,
                 decoration: const InputDecoration(
-                  labelText: 'Description',
+                  labelText: 'Habit Description',
                   border: OutlineInputBorder(),
                 ),
                 maxLines: 2,
-                // validator: (value) {
-                //   if (value == null || value.isEmpty || value.trim().isEmpty) {
-                //     return 'Cannot be blank';
-                //   }
-                //   return null;
-                // },
               ),
             ],
           ),

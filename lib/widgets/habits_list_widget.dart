@@ -8,7 +8,7 @@ class HabitsListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    debugPrint("si è agg $runtimeType");
+    debugPrint("$runtimeType");
     final habits = ref.watch(habitsProvider);
 
     return ListView.builder(
@@ -24,7 +24,7 @@ class HabitsListWidget extends ConsumerWidget {
 class _HabitListViewItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    debugPrint("Si agg $runtimeType");
+    debugPrint("$runtimeType");
     final habit = ref.watch(currentHabitProvider);
 
     return GestureDetector(
@@ -54,6 +54,8 @@ class _HabitListViewItem extends ConsumerWidget {
               maxLines: 2,
             ),
           ),
+          //Per interfaccia responsive verticale/orizzontale, mostra se
+          //l'abitudine è stata completata per il giorno di ieri
           OrientationBuilder(builder: (context, orientation) {
             final currentOrientation = MediaQuery.of(context).orientation;
             if (currentOrientation == Orientation.portrait) {

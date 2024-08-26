@@ -11,8 +11,6 @@ class HabitsList extends StateNotifier<List<Habit>> {
   HabitsList(super.state, this.database);
 
   Future init() async {
-    //final habits = await database.allHabits;
-
     state = await database.allHabits;
   }
 
@@ -31,10 +29,9 @@ class HabitsList extends StateNotifier<List<Habit>> {
         newUpdatedHabit.description, newUpdatedHabit.completionDates);
   }
 
-  Future<void> addHabitsFromHttp() async {
+  Future<void> addHabitsFromHttp(String addressString) async {
     try {
-      final response =
-          await http.get(Uri.parse("http://192.168.1.72:8000/habits.json"));
+      final response = await http.get(Uri.parse(addressString));
       if (response.statusCode != 200) {
         throw Exception(
             "Failed to access resource (status code: ${response.statusCode})");
@@ -55,30 +52,11 @@ class HabitsList extends StateNotifier<List<Habit>> {
               newHabit.description, newHabit.completionDates);
         }
       }
-
-      //aggiungere nel db il nuovo stato
     } on SocketException {
       throw Exception("No response");
     } catch (e) {
       throw Exception("Error: ${e.toString()}");
     }
-
-    /*
-    //aggiungo i nuovi elementi allo state, sostituendo gli habit con lo stesso id
-    final List<Habit> buffer = state;
-    for (final newHabit in importedHabits) {
-      final index = state.indexWhere((habit) => habit.id == newHabit.id);
-      if (index != -1) {
-        buffer.removeAt(index);
-        buffer.insert(index, newHabit);
-      } else {
-        buffer.add(newHabit);
-      }
-    }
-
-    //notifico una sola volta il cambio di stato
-    state = buffer;
-    */
   }
 
   Future<void> setHabitDoneToday(String id, bool? checked) async {
@@ -138,16 +116,4 @@ class HabitsList extends StateNotifier<List<Habit>> {
     state = state.where((element) => element.id != id).toList();
     await database.removeHabit(id);
   }
-
-  //metodo per aggiungere gli habits, quindi per sfruttare richiesta http tramite riverpod
-  // void addHabits(List<Habit> newHabits) {
-  //   for (final newHabit in newHabits) {
-  //     final index = state.indexWhere((habit) => habit.id == newHabit.id);
-  //     if (index != -1) {
-  //       state[index] = newHabit;
-  //     } else {
-  //       state.add(newHabit);
-  //     }
-  //   }
-  // }
 }
